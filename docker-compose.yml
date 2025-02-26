@@ -1,0 +1,19 @@
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - ./config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      #DISABLE_JEMALLOC: true
+      TZ: ${TIMEZONE}
+      LANG: ${LANG}
+    #devices:
+    #  - /dev/ttyUSB0:/dev/ttyUSB0
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
