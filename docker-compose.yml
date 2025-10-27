@@ -4,7 +4,7 @@ services:
     container_name: homeassistant
     hostname: homeassistant
     volumes:
-      - ./config:/config
+      - ${CONFIG_FOLDER:-./config}:/config
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     environment:
