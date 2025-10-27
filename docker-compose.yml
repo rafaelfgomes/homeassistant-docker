@@ -1,7 +1,8 @@
 services:
   homeassistant:
-    container_name: homeassistant
     image: lscr.io/linuxserver/homeassistant
+    container_name: homeassistant
+    hostname: homeassistant
     volumes:
       - ./config:/config
       - /etc/localtime:/etc/localtime:ro
