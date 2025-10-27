@@ -1,6 +1,6 @@
 services:
   homeassistant:
-    image: lscr.io/linuxserver/homeassistant
+    image: ghcr.io/home-assistant/home-assistant:stable
     container_name: homeassistant
     hostname: homeassistant
     volumes:
@@ -8,8 +8,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     environment:
-      PUID: ${PUID}
-      PGID: ${PGID}
       #DISABLE_JEMALLOC: true
       TZ: ${TIMEZONE}
     #devices:
