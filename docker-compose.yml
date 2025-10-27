@@ -1,9 +1,9 @@
 services:
   homeassistant:
     container_name: homeassistant
-    image: "ghcr.io/home-assistant/home-assistant:stable"
+    image: lscr.io/linuxserver/homeassistant:latest
     volumes:
-      - config:/config
+      - ./config:/config
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     environment:
@@ -11,13 +11,17 @@ services:
       PGID: ${PGID}
       #DISABLE_JEMALLOC: true
       TZ: ${TIMEZONE}
-      LANG: ${LANG}
     #devices:
     #  - /dev/ttyUSB0:/dev/ttyUSB0
     restart: unless-stopped
-    privileged: true
-    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    ports:
+      - ${WEB_PORT:-8123}:8123 #optional
+    networks:
+      - net
 
-volumes:
-  config:
-    name: homeassistant-config
+networks:
+  net:
+    external: false
