@@ -1,19 +1,30 @@
 services:
   homeassistant:
-    image: lscr.io/linuxserver/homeassistant
+    image: linuxserver/homeassistant
     container_name: homeassistant
     hostname: homeassistant
     volumes:
-      - ${CONFIG_FOLDER:-./config}:/config
+      - config:/config
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
-      #DISABLE_JEMALLOC: true
       TZ: ${TIMEZONE}
-    #devices:
-    #  - /dev/ttyUSB0:/dev/ttyUSB0
     restart: unless-stopped
     privileged: true
-    network_mode: host
+    networks:
+      net:
+        ipv4_address: ${APP_IP}
+    dns:
+      - ${DNS_IP_1}
+      - ${DNS_IP_2:-9.9.9.9}
+
+volumes:
+  config:
+    name: homeassistant-config
+
+networks:
+  net:
+    external: true
+    name: webapps-network
