@@ -6,7 +6,7 @@ services:
     volumes:
       - ${HOMEASSISTANT_CONFIG_FOLDER:-./config}:/config
       - /etc/localtime:/etc/localtime:ro
-      - /run/dbus:/run/dbus:ro
+      - /var/run/dbus:/run/dbus:ro
     privileged: true
     cap_add:
       - NET_ADMIN
