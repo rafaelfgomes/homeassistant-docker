@@ -8,6 +8,9 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
     environment:
       TZ: ${TIMEZONE}
     restart: always
